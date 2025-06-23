@@ -46,51 +46,51 @@ class ScheduleDayBadge extends StatelessWidget {
         BoxConstraints(
           maxWidth: globals.dayBadgeWidth + globals.dayBadgeAdjustmentPadding,
         ),
-      child: Container(
-        // Outer padding for adjustment of the badge's position
-        // Only horizontal padding should be used here!
-        padding: 
-          EdgeInsets.symmetric(
-            horizontal: globals.dayBadgeAdjustmentPadding,
-            vertical: 0
-          ),
-        child: ClipRRect(
-          borderRadius: BorderRadiusGeometry.all(Radius.circular(globals.borderRadius)),
-          child: Stack(
-            children: [
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-                child: SizedBox.expand(
-                  child: ColoredBox(color: Colors.transparent),
+        child: Container(
+          // Outer padding for adjustment of the badge's position
+          // Only horizontal padding should be used here!
+          padding: 
+            EdgeInsets.symmetric(
+              horizontal: globals.dayBadgeAdjustmentPadding,
+              vertical: 0
+            ),
+          child: ClipRRect(
+            borderRadius: BorderRadiusGeometry.all(Radius.circular(globals.borderRadius)),
+            child: Stack(
+              children: [
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                  child: SizedBox.expand(
+                    child: ColoredBox(color: Colors.transparent),
+                  ),
                 ),
-              ),
-              SizedBox.expand(
-                child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: 14,
-                  horizontal: 14
+                SizedBox.expand(
+                  child: Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 14
+                  ),
+                  color: Color.lerp(Colors.transparent, badgeColor, globals.dayBadgeOpacity),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${dateTs.toString().substring(6,8)}.${dateTs.toString().substring(4,6)}", 
+                        style: CustomTextTheme().getStyleWithColor(CustomTextTheme().monoLabelSmall, textColor)
+                      ),
+                      Text(
+                        getDayShort(day), 
+                        style: CustomTextTheme().getStyleWithColor(CustomTextTheme().monoLabelLarge, textColor)
+                      ),
+                    ]
+                  ),
+                )
                 ),
-                color: Color.lerp(Colors.transparent, badgeColor, globals.dayBadgeOpacity),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "${dateTs.toString().substring(6,8)}.${dateTs.toString().substring(4,6)}", 
-                      style: CustomTextTheme().getStyleWithColor(CustomTextTheme().monoLabelSmall, textColor)
-                    ),
-                    Text(
-                      getDayShort(day), 
-                      style: CustomTextTheme().getStyleWithColor(CustomTextTheme().monoLabelLarge, textColor)
-                    ),
-                  ]
-                ),
-              )
-              ),
-            ],
+              ],
+            )
           )
         )
-      )
     );
   }
 }

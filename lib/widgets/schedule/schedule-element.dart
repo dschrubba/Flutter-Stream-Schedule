@@ -74,17 +74,10 @@ class ScheduleElement extends StatelessWidget {
                     child: 
                       Row(
                         children: [
-                          Text(
-                            scheduleItems.length.toString(),
-                            style: textStyle
-                            )
+                          ScheduleStreamItem(item: item)
                         ]
                       ),
                   )
-              ),
-              // Stream Item
-              ScheduleStreamItem(
-                item: item,
               ),
               // Day Badge
               ScheduleDayBadge(

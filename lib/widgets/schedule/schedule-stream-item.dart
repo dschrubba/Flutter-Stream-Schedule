@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stream_schedule/theme/custom-themes/theme-text.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-data.dart';
 
 class ScheduleStreamItem extends StatelessWidget {
@@ -12,9 +13,13 @@ class ScheduleStreamItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        item?.game.title ?? ""
+    return SizedBox(
+      child: ColoredBox(
+        color: Colors.green,
+        child: Text(
+          item?.game.title ?? "",
+          style: CustomTextTheme().bodyLarge,
+        ),
       ),
     );
   }
