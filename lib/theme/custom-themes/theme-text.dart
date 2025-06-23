@@ -2,6 +2,22 @@ import 'package:flutter/material.dart';
 
 class CustomTextTheme extends TextTheme {
 
+  @override
+  final TextStyle labelSmall = TextStyle(
+    fontFamily: customFontFamilyNames[CustomFontFamilies.generalSans],
+    fontSize: 16,
+    fontWeight: FontWeight.w200,
+    height: 1
+  );
+
+  @override
+  final TextStyle labelLarge = TextStyle(
+    fontFamily: customFontFamilyNames[CustomFontFamilies.generalSans],
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    height: 1
+  );
+
   final TextStyle monoLabelLarge = TextStyle(
     fontFamily: customFontFamilyNames[CustomFontFamilies.ibmPlexMono],
     fontSize: 36,

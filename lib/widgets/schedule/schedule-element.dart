@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stream_schedule/theme/custom-themes/theme-text.dart';
-import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-data.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-day-badge.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-stream-item.dart';
@@ -19,8 +17,6 @@ class ScheduleElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    TextStyle textStyle = CustomTextTheme().getStyleWithColor(CustomTextTheme().monoLabelSmall, AppThemeColors.get(Theme.of(context).brightness).accent);
 
     StreamScheduleItem? item;
     var validItems = scheduleItems.nonNulls.toList();
