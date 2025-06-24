@@ -37,6 +37,14 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
     });
   }
 
+  void jumpToCurrentWeek() {
+    setState(() {
+      widget.year.value = DateTime.now().year;
+      widget.calendarWeekSubject.value = UtilsService.getCurrentCalendarWeek();
+      DataService.loadStreams(widget.year.value, widget.calendarWeekSubject.value);
+    });
+  }
+
   String buildDateRangeString(int cw) {
     List<DateTime> days = UtilsService.daysOfCalendarWeek(widget.year.value, cw);
     String firstDay = UtilsService.getFormattedDate(days[0]);
@@ -76,7 +84,9 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
                   color: AppThemeColors.get(Theme.of(context).brightness).onAccent,
               ),
               FilledButton(
-                onPressed: () => {},
+                onPressed: () => {
+                  jumpToCurrentWeek()
+                },
                 style: buttonStyle,
                 child: Padding(
                   padding: EdgeInsetsGeometry.symmetric(vertical: 0, horizontal: 4),
