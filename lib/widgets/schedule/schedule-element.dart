@@ -40,17 +40,7 @@ class ScheduleElement extends StatelessWidget {
       state = ScheduleItemState.empty;
     }
 
-    return ConstrainedBox(
-      constraints: 
-        BoxConstraints(
-          // Schedule Element Constraints
-          // This is NOT the Day Badge
-          // Schedule Element = Whole Row!
-          maxHeight: (state == ScheduleItemState.empty) ? (globals.dayBadgeHeight - 16) : globals.dayBadgeHeight,
-          maxWidth: double.infinity,
-        ),
-      child: 
-        Container(
+    return Container(
           width: double.infinity,
           padding: 
             EdgeInsets.symmetric(
@@ -65,7 +55,8 @@ class ScheduleElement extends StatelessWidget {
                   Container(
                     padding: 
                       EdgeInsets.only(
-                        left: globals.dayBadgeWidth + globals.dayBadgeAdjustmentPadding
+                        left: globals.dayBadgeWidth + (globals.dayBadgeAdjustmentPadding / 2),
+                        right: (globals.dayBadgeAdjustmentPadding / 2)
                       ),
                     child: 
                       Row(
@@ -88,7 +79,6 @@ class ScheduleElement extends StatelessWidget {
               ),
             ]
           )
-        )
       );
   }
 }
