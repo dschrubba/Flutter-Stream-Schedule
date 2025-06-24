@@ -49,7 +49,7 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
     DataService.loadStreams(widget.year.value, widget.calendarWeekSubject.value);
     ButtonStyle buttonStyle = ButtonStyle(
       backgroundColor: WidgetStateColor.resolveWith((c) => AppThemeColors.get(Theme.of(context).brightness).accent),
-      textStyle: WidgetStateTextStyle.resolveWith((t) => TextStyle(fontSize: 16),
+      textStyle: WidgetStateTextStyle.resolveWith((t) => TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
       )
     );
 
@@ -78,13 +78,16 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
               FilledButton(
                 onPressed: () => {},
                 style: buttonStyle,
-                child: Text(
-                  buildDateRangeString(widget.calendarWeekSubject.value), 
-                  style: CustomTextTheme().getStyle(CustomFontFamilies.generalSans).copyWith(
-                    color: AppThemeColors.get(Theme.of(context).brightness).onAccent
-                    ),
-                  )
-              ),
+                child: Padding(
+                  padding: EdgeInsetsGeometry.symmetric(vertical: 0, horizontal: 4),
+                  child: Text(
+                    buildDateRangeString(widget.calendarWeekSubject.value), 
+                    style: CustomTextTheme().getStyle(CustomFontFamilies.generalSans).copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppThemeColors.get(Theme.of(context).brightness).onAccent
+                      ),
+                    )
+              )),
               IconButton.filled(
                 onPressed: () => {
                   changeCalendarWeekBy(1)
