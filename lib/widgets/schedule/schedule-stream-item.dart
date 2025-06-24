@@ -31,7 +31,7 @@ class ScheduleStreamItem extends StatelessWidget {
               color: AppThemeColors.get(Theme.of(context).brightness).surface
             ),
             child: Container( 
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(14),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

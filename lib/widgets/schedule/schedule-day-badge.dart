@@ -26,24 +26,30 @@ class ScheduleDayBadge extends StatelessWidget {
 
     Color badgeColor;
     Color textColor;
+    bool isEmpty;
 
     switch (state) {
       case ScheduleItemState.accent:
+        isEmpty = false;
         badgeColor = AppThemeColors.get(Theme.of(context).brightness).accent;
         textColor = AppThemeColors.get(Theme.of(context).brightness).onAccent;
         break;
       case ScheduleItemState.cancelled:
+        isEmpty = false;
         badgeColor = AppThemeColors.get(Theme.of(context).brightness).surfaceDisabled;
         textColor = AppThemeColors.get(Theme.of(context).brightness).onSurfaceDisabled;
         break;
       case ScheduleItemState.empty:
+        isEmpty = true;
         badgeColor = AppThemeColors.get(Theme.of(context).brightness).surfaceDisabled;
         textColor = AppThemeColors.get(Theme.of(context).brightness).onSurfaceDisabled;
         break;
     }
 
+    
+
     return SizedBox(
-      height: globals.scheduleItemHeight,
+      height: !isEmpty ? globals.scheduleItemHeight : 80,
       child: Container(
         // Outer padding for adjustment of the badge's position
         // Only horizontal padding should be used here!
