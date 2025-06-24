@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_stream_schedule/services/data-service.dart';
 import 'package:flutter_stream_schedule/services/utils-service.dart';
+import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-element.dart';
+import 'package:flutter_stream_schedule/widgets/schedule/schedule-week-switcher.dart';
 import 'package:rxdart/subjects.dart';
 
 enum ScheduleItemState {
@@ -46,7 +50,7 @@ class _StreamScheduleState extends State<StreamSchedule>  {
       return null;
     }
 
-    DataService.loadStreams(year, calendarWeek).then((CacheWeekItem item) => {
+    DataService.loadStreams(year, calendarWeek).then((CacheWeekItem? item) => {
     });
 
     setState(() {
@@ -85,12 +89,46 @@ class _StreamScheduleState extends State<StreamSchedule>  {
       return list;
     }
 
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 0,
-        vertical: 8
-      ),
-      child: Column(children: buildElements())
-    );
+    return Stack(
+          children: [
+            Positioned.fill(
+              top: -20,
+              right: -20,
+              bottom: -20,
+              left: -20, 
+              child:
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    themeColors["bakuretsuCrimson-900"]!, BlendMode.multiply
+                  ),
+                  child: ImageFiltered(
+                    imageFilter: 
+                      ImageFilter.blur(
+                        sigmaX: 48.0,
+                        sigmaY: 48.0,
+                        tileMode: TileMode.mirror,
+                      ),
+                      child: 
+                        Image.asset(
+                          "assets/images/bg.png",
+                          fit: 
+                            BoxFit.cover,
+                          ),
+                  ),
+                )
+              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ScheduleWeekSwitcher(
+                  year: widget.year,
+                  calendarWeekSubject: widget.calendarWeekSubject,
+                ),
+                ...buildElements()
+              ],
+            ),
+          ],
+        );
+
   }
 }
