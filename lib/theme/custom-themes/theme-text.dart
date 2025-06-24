@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 
 class CustomTextTheme extends TextTheme {
 
+  final TextStyle scheduleItemBadge = TextStyle(
+    fontFamily: customFontFamilyNames[CustomFontFamilies.generalSans],
+    fontSize: 14,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w800,
+    height: 1
+  );
+
   final TextStyle scheduleItemGameTitle = TextStyle(
     fontFamily: customFontFamilyNames[CustomFontFamilies.generalSans],
     fontSize: 24,
     fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.w200,
+    fontWeight: FontWeight.w600,
     height: 1
   );
 
@@ -27,7 +35,7 @@ class CustomTextTheme extends TextTheme {
   final TextStyle monoLabelLarge = TextStyle(
     fontFamily: customFontFamilyNames[CustomFontFamilies.ibmPlexMono],
     fontSize: 36,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     height: 1
   );
 
