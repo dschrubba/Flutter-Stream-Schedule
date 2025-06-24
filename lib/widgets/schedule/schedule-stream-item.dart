@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stream_schedule/theme/custom-themes/theme-text.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
@@ -32,8 +33,8 @@ class ScheduleStreamItem extends StatelessWidget {
             padding: EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 4,
               children: buildColumn(context, item!)
           )
           )
@@ -46,20 +47,33 @@ class ScheduleStreamItem extends StatelessWidget {
   List<Widget> buildColumn(BuildContext context, StreamScheduleItem item) {
     List<Widget> children = [];
 
+    // Stream Title
     if (item.streamTitle.isNotEmpty) {
       children.add(
         Text(
           item.streamTitle,
-          style: CustomTextTheme().getStyleWithColor(CustomTextTheme().labelSmall, AppThemeColors.get(Theme.of(context).brightness).onSurface)
+          style: CustomTextTheme().getStyleWithColor(CustomTextTheme().scheduleItemStreamTitle, AppThemeColors.get(Theme.of(context).brightness).onSurface)
         )
       );
     }
+
+    // Game Title
     children.add(
-      Text(
+      AutoSizeText(
         item.game.title.isNotEmpty ? item.game.title  : "",
-        style: CustomTextTheme().getStyleWithColor(CustomTextTheme().labelLarge, AppThemeColors.get(Theme.of(context).brightness).onSurface)
+        style: CustomTextTheme().getStyleWithColor(CustomTextTheme().scheduleItemGameTitle, AppThemeColors.get(Theme.of(context).brightness).onSurface)
       )
     );
+
+    // Game Subtitle
+    if (item.game.subtitle.isNotEmpty) {
+      children.add(
+        Text(
+          item.game.subtitle,
+          style: CustomTextTheme().getStyleWithColor(CustomTextTheme().scheduleItemGameSubTitle, AppThemeColors.get(Theme.of(context).brightness).onSurface)
+        )
+      );
+    }
 
     return children;
   }

@@ -46,7 +46,7 @@ class ScheduleElement extends StatelessWidget {
           // Schedule Element Constraints
           // This is NOT the Day Badge
           // Schedule Element = Whole Row!
-          maxHeight: globals.dayBadgeHeight,
+          maxHeight: (state == ScheduleItemState.empty) ? (globals.dayBadgeHeight - 16) : globals.dayBadgeHeight,
           maxWidth: double.infinity,
         ),
       child: 
@@ -69,8 +69,11 @@ class ScheduleElement extends StatelessWidget {
                       ),
                     child: 
                       Row(
+                        spacing: 16,
                         children: [
-                          ScheduleStreamItem(item: item)
+                          ScheduleStreamItem(item: item),
+                          ScheduleStreamItem(item: item),
+                          ScheduleStreamItem(item: item),
                         ]
                       ),
                   )
@@ -80,7 +83,8 @@ class ScheduleElement extends StatelessWidget {
                 state: state,
                 dateTs: dateTs,
                 day: UtilsService.dateTsToDayString(dateTs), 
-                height: height
+                hours: item?.hours ?? "XX",
+                minutes: item?.minutes ?? "XX",
               ),
             ]
           )

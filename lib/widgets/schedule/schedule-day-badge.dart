@@ -10,10 +10,11 @@ class ScheduleDayBadge extends StatelessWidget {
   final ScheduleItemState state;
   final int dateTs;
   final String day;
-  final double height;
+  final String hours;
+  final String minutes;
 
   const ScheduleDayBadge({
-    super.key, required this.day, required this.height, required this.dateTs, required this.state
+    super.key, required this.day, required this.dateTs, required this.state, required this.hours, required this.minutes
   });
 
   String getDayShort(String d) {
@@ -60,12 +61,9 @@ class ScheduleDayBadge extends StatelessWidget {
               children: [
                 BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-                  child: SizedBox.expand(
-                    child: ColoredBox(color: Colors.transparent),
-                  ),
+                  child: ColoredBox(color: Colors.transparent),
                 ),
-                SizedBox.expand(
-                  child: Container(
+                Container(
                   padding: EdgeInsets.symmetric(
                     vertical: 14,
                     horizontal: 14
@@ -74,6 +72,7 @@ class ScheduleDayBadge extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    spacing: 2,
                     children: [
                       Text(
                         "${dateTs.toString().substring(6,8)}.${dateTs.toString().substring(4,6)}", 
@@ -83,10 +82,16 @@ class ScheduleDayBadge extends StatelessWidget {
                         getDayShort(day), 
                         style: CustomTextTheme().getStyleWithColor(CustomTextTheme().monoLabelLarge, textColor)
                       ),
+                      if (state == ScheduleItemState.accent) (
+                        Text(
+                          "$hours:$minutes", 
+                          style: CustomTextTheme().getStyleWithColor(CustomTextTheme().monoLabelSmall, textColor)
+                        )
+                      ),
                     ]
                   ),
                 )
-                ),
+                
               ],
             )
           )

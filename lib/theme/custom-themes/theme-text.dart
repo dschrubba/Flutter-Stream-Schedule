@@ -2,19 +2,25 @@ import 'package:flutter/material.dart';
 
 class CustomTextTheme extends TextTheme {
 
-  @override
-  final TextStyle labelSmall = TextStyle(
+  final TextStyle scheduleItemGameTitle = TextStyle(
     fontFamily: customFontFamilyNames[CustomFontFamilies.generalSans],
-    fontSize: 16,
+    fontSize: 24,
+    fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w200,
     height: 1
   );
 
-  @override
-  final TextStyle labelLarge = TextStyle(
+  final TextStyle scheduleItemGameSubTitle = TextStyle(
     fontFamily: customFontFamilyNames[CustomFontFamilies.generalSans],
-    fontSize: 24,
+    fontSize: 14,
     fontWeight: FontWeight.w600,
+    height: 1
+  );
+
+  final TextStyle scheduleItemStreamTitle = TextStyle(
+    fontFamily: customFontFamilyNames[CustomFontFamilies.generalSans],
+    fontSize: 14,
+    fontWeight: FontWeight.w200,
     height: 1
   );
 
