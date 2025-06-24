@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stream_schedule/services/calendar-service.dart';
+import 'package:flutter_stream_schedule/services/data-service.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/theme/theme.dart';
 import 'package:flutter_stream_schedule/widgets/app-logo.dart';
@@ -20,6 +24,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
+    log("MyApp:build called");
+    DataService.updateStreams(
+      CalendarService.year.value,
+      CalendarService.calendarWeek.value,
+    );
     return MaterialApp(
       title: 'Flutter Demo',
       themeMode: ThemeMode.system,

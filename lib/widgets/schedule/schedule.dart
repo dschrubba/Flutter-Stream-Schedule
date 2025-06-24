@@ -1,12 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_stream_schedule/services/calendar-service.dart';
 import 'package:flutter_stream_schedule/services/data-service.dart';
 import 'package:flutter_stream_schedule/services/utils-service.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-element.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-week-switcher.dart';
-import 'package:rxdart/subjects.dart';
 
 enum ScheduleItemState {
   accent,
@@ -14,74 +13,34 @@ enum ScheduleItemState {
   empty,
 }
 
-class StreamSchedule extends StatefulWidget { 
-  final BehaviorSubject<int> year;
-  final BehaviorSubject<int> calendarWeekSubject;
-  final BehaviorSubject<CacheWeekItem> currentWeek;
+class Schedule extends StatefulWidget { 
 
-  const StreamSchedule({
+  const Schedule({
     super.key,
-    required this.year,
-    required this.calendarWeekSubject,
-    required this.currentWeek,
   });
   @override
-  State<StreamSchedule> createState() => _StreamScheduleState();
+  State<Schedule> createState() => _ScheduleState();
 }
 
-class _StreamScheduleState extends State<StreamSchedule>  {
-
-  void updateStreams(int year, int calendarWeek) async {
-
-    // Get current DateTime
-    DateTime now = DateTime.now();
-
-    // Add threshold to current DateTime
-    DateTime threshold = now;
-    threshold.minute + 1;
-
-    // Get timestamp of last update of calendar week cache items
-    DateTime lastUpdate = DataService.cache[calendarWeek]?.updated ?? DateTime(1999);
-
-    // Check if cache item for week exists and threshold is exceeded,
-    // otherwise return
-    if (!(DataService.cache.keys.contains(calendarWeek) && lastUpdate.isAfter(now)))
-    {
-      return null;
-    }
-
-    DataService.loadStreams(year, calendarWeek).then((CacheWeekItem? item) => {
-    });
-
-    setState(() {
-    });
-  }
+class _ScheduleState extends State<Schedule>  {
 
   @override
   Widget build(BuildContext context) {
 
-    widget.calendarWeekSubject.listen((int cw) {
+    CalendarService.calendarWeek.listen((int cw) {
       setState(() {
-        updateStreams(widget.year.value, widget.calendarWeekSubject.value);
+        
       });
     });
 
     List<Widget> buildElements() {
-
-      if (!widget.calendarWeekSubject.hasValue) 
-      {
-        setState(() {
-          widget.calendarWeekSubject.value = UtilsService.getCurrentCalendarWeek();
-        });
-      }
-
-      List<DateTime> daysOfCalendarWeek = UtilsService.daysOfCalendarWeek(2025, widget.calendarWeekSubject.value);
+      List<DateTime> daysOfCalendarWeek = UtilsService.daysOfCalendarWeek(2025, CalendarService.calendarWeek.value);
       List<Widget> list = [];
       for (int key = 0; key < daysOfCalendarWeek.length; key++) {
         DateTime value = daysOfCalendarWeek[key];
         int dateTs = UtilsService.dateToDateTs(value);
         list.insert(key, ScheduleElement(
-          scheduleItems: DataService.cache[widget.calendarWeekSubject.value]?.items[dateTs]?.items ?? [],
+          scheduleItems: DataService.cache[CalendarService.calendarWeek.value]?.items[dateTs]?.items ?? [],
           dateTs: dateTs,
           height: 72,
         ));
@@ -120,10 +79,7 @@ class _StreamScheduleState extends State<StreamSchedule>  {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ScheduleWeekSwitcher(
-                  year: widget.year,
-                  calendarWeekSubject: widget.calendarWeekSubject,
-                ),
+                ScheduleWeekSwitcher(),
                 ...buildElements()
               ],
             ),
