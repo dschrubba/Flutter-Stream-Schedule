@@ -10,29 +10,32 @@ class DataService {
   static BehaviorSubject<int> year = BehaviorSubject<int>();
   static BehaviorSubject<int> calendarWeek = BehaviorSubject<int>();
 
-  static Future<CacheWeekItem> loadStreams(int year, int cw) async {
+  static Future<CacheWeekItem?> loadStreams(int year, int cw) async {
 
     final Response res = await get(Uri.parse('${dotenv.env['API_STREAMS_LIST']}/$year/$cw'));
 
     // String key is dateTs
     final Map<String, dynamic> decoded = json.decode(res.body) as Map<String, dynamic>;
 
-    final CacheWeekItem cacheWeekItem = CacheWeekItem(
-      requestStatus: res.statusCode,
-      calendarWeek: cw,
-      updated: DateTime.now(),
-      items: decoded.map((key, value) => MapEntry(
-        int.parse(key),
-        CacheDayItem(
-          dateTs: int.parse(key),
-          items: (value as List)
-              .map<StreamScheduleItem>((item) => StreamScheduleItem.fromJson(item))
-              .toList(),
-        ),
-      )),
-    );
+    CacheWeekItem? cacheWeekItem;
+    if (res.statusCode.toString().startsWith("2")) {
+      cacheWeekItem = CacheWeekItem(
+        requestStatus: res.statusCode,
+        calendarWeek: cw,
+        updated: DateTime.now(),
+        items: decoded.map((key, value) => MapEntry(
+          int.parse(key),
+          CacheDayItem(
+            dateTs: int.parse(key),
+            items: (value as List)
+                .map<StreamScheduleItem>((item) => StreamScheduleItem.fromJson(item))
+                .toList(),
+          ),
+        )),
+      );
+      cache[cw] = cacheWeekItem;
+    }
 
-    cache[cw] = cacheWeekItem;
     return cacheWeekItem;
   } 
 
