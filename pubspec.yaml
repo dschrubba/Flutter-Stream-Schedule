@@ -67,6 +67,20 @@ flutter:
     - .env
     - assets/icons/logo.svg
     - assets/images/bg.png
+    - assets/socials/bluesky.svg
+    - assets/socials/discord.svg
+    - assets/socials/eurodollar.svg
+    - assets/socials/google_sheets.svg
+    - assets/socials/kofi.svg
+    - assets/socials/soundcloud.svg
+    - assets/socials/steam_alt.svg
+    - assets/socials/steam.svg
+    - assets/socials/sterni.svg
+    - assets/socials/throne.svg
+    - assets/socials/tumblr_alt.svg
+    - assets/socials/tumblr.svg
+    - assets/socials/twitch.svg
+    - assets/socials/youtube.svg
 
   fonts:
     - family: "General Sans"
