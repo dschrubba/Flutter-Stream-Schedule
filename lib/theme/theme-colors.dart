@@ -17,7 +17,7 @@ class AppThemeColors {
   static AppThemeColorsSet dark = AppThemeColorsSet(
     background: themeColors['nocturnal-900']!,
     onBackground: themeColors['bonestorm-100']!,
-    surface: themeColors['moonlight-900']!,
+    surface: themeColors['moonlight-950']!,
     onSurface: themeColors['bonestorm-100']!,
     surfaceDisabled: themeColors['nocturnal-800']!,
     onSurfaceDisabled: themeColors['nocturnal-400']!,
@@ -36,7 +36,6 @@ class AppThemeColors {
 }
 
 class AppThemeColorsSet {
-
   final Color background;
   final Color onBackground;
   final Color surface;
@@ -46,7 +45,6 @@ class AppThemeColorsSet {
   final Color accent;
   final Color onAccent;
   static const Color fallback = Colors.amber;
-
   AppThemeColorsSet({
     this.background = fallback,
     this.onBackground = fallback,
