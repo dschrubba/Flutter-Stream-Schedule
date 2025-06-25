@@ -15,20 +15,18 @@ class SocialMediaGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsGeometry.all(16), 
-      child: ClipOval(
-        child: ColoredBox(
-          color: item.color, 
-          child: Padding(
-            padding: (item.overridePadding != null) ? item.overridePadding! : EdgeInsetsGeometry.all(10), 
+      child: FilledButton(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateColor.resolveWith((Set<WidgetState> states) => item.color)
+          ),
+        onPressed: () => {},
             child: Center(
               child: SVGIcon(
                 assetName: item.iconAssetName, 
                 color: themeColors["bonestorm-100"]!
-              )
-            )
           )
         )
-      ),
+      )
     );
   }
 }

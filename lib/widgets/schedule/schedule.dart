@@ -28,12 +28,12 @@ class _ScheduleState extends State<Schedule>  {
   Widget build(BuildContext context) {
 
     CalendarService.calendarWeek.listen((int cw) {
-      setState(() {
-        
+      setState(() {     
       });
     });
 
-    List<Widget> buildElements() {
+    Widget buildScheduleColumn() {
+
       List<DateTime> daysOfCalendarWeek = UtilsService.daysOfCalendarWeek(2025, CalendarService.calendarWeek.value);
       List<Widget> list = [];
       for (int key = 0; key < daysOfCalendarWeek.length; key++) {
@@ -45,46 +45,58 @@ class _ScheduleState extends State<Schedule>  {
           height: 72,
         ));
       }
-      return list;
+
+      var paddingContainer = Padding(
+        padding: EdgeInsetsGeometry.symmetric(
+          vertical: 16,
+          horizontal: 0
+        ),
+        child: Column(
+          children: list,
+        )
+      );
+
+      var column = Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ScheduleWeekSwitcher(),
+          paddingContainer
+        ],
+      );
+
+      return column;
     }
 
     return Stack(
-          children: [
-            Positioned.fill(
-              top: -20,
-              right: -20,
-              bottom: -20,
-              left: -20, 
-              child:
-                ColorFiltered(
-                  colorFilter: ColorFilter.mode(
-                    themeColors["bakuretsuCrimson-900"]!, BlendMode.multiply
-                  ),
-                  child: ImageFiltered(
-                    imageFilter: 
-                      ImageFilter.blur(
-                        sigmaX: 48.0,
-                        sigmaY: 48.0,
-                        tileMode: TileMode.mirror,
-                      ),
-                      child: 
-                        Image.asset(
-                          "assets/images/bg.png",
-                          fit: 
-                            BoxFit.cover,
-                          ),
-                  ),
-                )
-              ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ScheduleWeekSwitcher(),
-                ...buildElements()
-              ],
+      children: [
+        Positioned.fill(
+          top: -20,
+          right: -20,
+          bottom: -20,
+          left: -20, 
+          child:
+          ColorFiltered(
+            colorFilter:
+              Theme.brightnessOf(context) == Brightness.light
+                  ? ColorFilter.mode(themeColors["lambda-700"]!, BlendMode.screen)
+                  : ColorFilter.mode(themeColors["bakuretsuCrimson-900"]!, BlendMode.multiply),
+            child: ImageFiltered(
+              imageFilter: 
+                ImageFilter.blur(
+                  sigmaX: 48.0,
+                  sigmaY: 48.0,
+                  tileMode: TileMode.mirror,
+                ),
+              child: 
+                Image.asset(
+                  "assets/images/bg.png",
+                  fit: BoxFit.cover,
+                ),
             ),
-          ],
-        );
-
+          )
+        ),
+        buildScheduleColumn()
+      ],
+    );
   }
 }

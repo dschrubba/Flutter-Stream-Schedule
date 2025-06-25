@@ -56,7 +56,15 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
       )
     );
 
-    return Padding(
+    return Container(
+      decoration: BoxDecoration(
+        color: AppThemeColors.get(Theme.brightnessOf(context)).accent.withAlpha(64),
+        backgroundBlendMode: 
+          Theme.brightnessOf(context) == Brightness.light
+          ? BlendMode.screen
+          : BlendMode.multiply
+      ),
+      child: Padding(
         padding: EdgeInsetsGeometry.all(16),
         child: SizedBox(
           width: double.infinity,
@@ -109,6 +117,7 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
             ]
           )
         )
+      )
     );
   }
 }
