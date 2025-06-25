@@ -16,7 +16,6 @@ class DataService {
 
     final now = DateTime.now();
     final threshold = now.subtract(const Duration(minutes: 1));
-
     final lastUpdate = DataService.cache[calendarWeek]?.updated ?? DateTime(1999);
 
     // Only update if cache exists and data is newer than threshold
