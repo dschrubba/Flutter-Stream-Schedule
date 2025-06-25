@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.20.2
   flutter_dotenv: ^5.2.1
   auto_size_text: ^3.0.0
+  svg_clip: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,8 @@ flutter:
     - assets/socials/tumblr.svg
     - assets/socials/twitch.svg
     - assets/socials/youtube.svg
+    - assets/socials/reddit.svg
+    - assets/socials/spotify.svg
 
   fonts:
     - family: "General Sans"
