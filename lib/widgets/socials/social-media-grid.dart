@@ -14,41 +14,49 @@ class SocialMediaGrid extends StatelessWidget {
       SocialMediaItem(
         label: "Twitch", 
         iconAssetName: "assets/socials/twitch.svg", 
+        envUri: "SOCIALS_TWITCH",
         color: Color.fromARGB(255, 144, 70, 255)
         ),
       SocialMediaItem(
         label: "Discord", 
         iconAssetName: "assets/socials/discord.svg", 
+        envUri: "SOCIALS_DISCORD",
         color: Color.fromARGB(255, 88, 101, 242)
         ),
       SocialMediaItem(
         label: "Bluesky", 
         iconAssetName: "assets/socials/bluesky.svg", 
+        envUri: "SOCIALS_BLUESKY",
         color: Color.fromARGB(255, 11, 135, 254)
         ),
       SocialMediaItem(
-        label: "Reddit", 
-        iconAssetName: "assets/socials/reddit.svg", 
-        color: Color.fromARGB(255, 255, 69, 0)
+        label: "Steam", 
+        iconAssetName: "assets/socials/steam.svg", 
+        envUri: "SOCIALS_STEAM",
+        color: Color.fromARGB(255, 0, 0, 0)
         ),
       SocialMediaItem(
         label: "YouTube", 
         iconAssetName: "assets/socials/youtube.svg", 
+        envUri: "SOCIALS_YOUTUBE",
         color: Color.fromARGB(255, 255, 0, 0)
         ),
       SocialMediaItem(
         label: "YouTube VODs", 
         iconAssetName: "assets/socials/youtube.svg", 
+        envUri: "SOCIALS_YOUTUBE_VODS",
         color: Color.fromARGB(255, 255, 0, 0)
         ),
       SocialMediaItem(
         label: "SoundCloud", 
         iconAssetName: "assets/socials/soundcloud.svg", 
+        envUri: "SOCIALS_SOUNDCLOUD",
         color: Color.fromARGB(255, 242, 111, 35)
         ),
       SocialMediaItem(
         label: "Spotify", 
-        iconAssetName: "assets/socials/spotify.svg", 
+        iconAssetName: "assets/socials/spotify.svg",
+        envUri: "SOCIALS_SPOTIFY",
         color: Color.fromARGB(255, 30, 215, 96),
         overridePadding: EdgeInsets.all(14)
         )
