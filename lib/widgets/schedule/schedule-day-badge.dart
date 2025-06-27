@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_stream_schedule/services/utils-service.dart';
 import 'package:flutter_stream_schedule/theme/custom-themes/theme-text.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/globals.dart' as globals;
@@ -30,6 +31,7 @@ class ScheduleDayBadge extends StatelessWidget {
     Color badgeColor;
     Color textColor;
     bool isEmpty;
+    bool isToday = dateTs == UtilsService.dateToDateTs(DateTime.now());
 
     switch (state) {
       case ScheduleItemState.accent:
@@ -81,16 +83,18 @@ class ScheduleDayBadge extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
-              child: ColoredBox(color: Colors.transparent),
+            if (!isToday) (
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
+                child: ColoredBox(color: Colors.transparent),
+              )
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
               color: Color.lerp(
                 Colors.transparent,
                 badgeColor,
-                globals.dayBadgeOpacity,
+                !isToday ? globals.dayBadgeOpacity : 1,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
