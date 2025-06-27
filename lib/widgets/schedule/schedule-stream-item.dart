@@ -22,18 +22,27 @@ class ScheduleStreamItem extends StatelessWidget {
       return Container();
     }
 
-    return ClipRRect(
-      borderRadius: BorderRadiusGeometry.all(Radius.circular(globals.borderRadius)),
+    return Container(
+      decoration: BoxDecoration(
+        color: 
+            !item!.cancelled
+            ? AppThemeColors.get(Theme.of(context).brightness).surface
+            : AppThemeColors.get(Theme.of(context).brightness).surfaceDisabled
+        ,
+        borderRadius: BorderRadiusGeometry.all(
+          Radius.circular(globals.borderRadius)
+          ),
+        boxShadow: [
+          BoxShadow(
+          color: AppThemeColors.shadowColor,
+          offset: Offset(0, 10),
+          blurRadius: 20
+          )
+          ]
+        ),
         child: SizedBox(
           height: globals.scheduleItemHeight,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: 
-                !item!.cancelled
-                ? AppThemeColors.get(Theme.of(context).brightness).surface
-                : AppThemeColors.get(Theme.of(context).brightness).surfaceDisabled
-            ),
-            child: Container(
+          child: Container(
               padding: EdgeInsets.all(14),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +51,6 @@ class ScheduleStreamItem extends StatelessWidget {
                 children: buildColumn(context, item!)
               )
             )
-          )
       )
     );
   }

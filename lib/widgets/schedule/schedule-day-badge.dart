@@ -61,7 +61,7 @@ class ScheduleDayBadge extends StatelessWidget {
           child: Stack(
             children: [
               BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
                 child: ColoredBox(color: Colors.transparent),
               ),
               Container(

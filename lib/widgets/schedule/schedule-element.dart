@@ -40,45 +40,41 @@ class ScheduleElement extends StatelessWidget {
       state = ScheduleItemState.empty;
     }
 
-    return Container(
-          width: double.infinity,
-          padding: 
-            EdgeInsets.symmetric(
-              horizontal: 0,
-              vertical: 8
-            ),
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
+    return SizedBox(
+      width: double.infinity,
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            clipBehavior: Clip.none,
+            scrollDirection: Axis.horizontal,
+            child: 
+              Container(
+                padding: 
+                  EdgeInsets.only(
+                    left: globals.dayBadgeWidth + (globals.dayBadgeAdjustmentPadding / 2),
+                    right: (globals.dayBadgeAdjustmentPadding / 2)
+                  ),
                 child: 
-                  Container(
-                    padding: 
-                      EdgeInsets.only(
-                        left: globals.dayBadgeWidth + (globals.dayBadgeAdjustmentPadding / 2),
-                        right: (globals.dayBadgeAdjustmentPadding / 2)
-                      ),
-                    child: 
-                      Row(
-                        spacing: 16,
-                        children: [
-                          ScheduleStreamItem(item: item),
-                          ScheduleStreamItem(item: item),
-                          ScheduleStreamItem(item: item),
-                        ]
-                      ),
-                  )
-              ),
-              // Day Badge
-              ScheduleDayBadge(
-                state: state,
-                dateTs: dateTs,
-                day: UtilsService.dateTsToDayString(dateTs), 
-                hours: item?.hours ?? "XX",
-                minutes: item?.minutes ?? "XX",
-              ),
-            ]
-          )
-      );
+                  Row(
+                    spacing: 16,
+                    children: [
+                      ScheduleStreamItem(item: item),
+                      ScheduleStreamItem(item: item),
+                      ScheduleStreamItem(item: item),
+                    ]
+                  ),
+              )
+          ),
+          // Day Badge
+          ScheduleDayBadge(
+            state: state,
+            dateTs: dateTs,
+            day: UtilsService.dateTsToDayString(dateTs), 
+            hours: item?.hours ?? "XX",
+            minutes: item?.minutes ?? "XX",
+          ),
+        ]
+      )
+    );
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_stream_schedule/theme/theme-colors.dart';
+import 'package:flutter_stream_schedule/widgets/schedule/schedule-week-switcher.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule.dart';
 import 'package:flutter_stream_schedule/widgets/socials/social-media-grid.dart';
 
@@ -10,19 +14,46 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox (
-      child: Column (
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: Schedule()
+    double stickyBarHeight = 80;
+    return CustomScrollView(
+      
+      slivers: [
+        SliverAppBar(
+          pinned: true,
+          forceElevated: true,
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          /*
+          backgroundColor: Theme.brightnessOf(context) == Brightness.light
+            ? AppThemeColors.light.surface
+            : AppThemeColors.dark.surface,
+          */
+          title: Stack(
+            children: [
+              Container(
+                color: Theme.brightnessOf(context) == Brightness.light
+                  ? AppThemeColors.light.accent.withAlpha(64)
+                  : AppThemeColors.dark.accent.withAlpha(64),
+                height: stickyBarHeight,
+              ),
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 64.0, sigmaY: 64.0),
+                child: Container(
+                  height: stickyBarHeight,
+                ),
+              ),
+              ScheduleWeekSwitcher()
+            ],
           ),
-          SizedBox(
-            width: double.infinity,
-            child: SocialMediaGrid()
+          titleSpacing: 0,
           ),
-        ],
-      )
+        SliverToBoxAdapter(
+          child: Schedule(),
+          ),
+        SliverToBoxAdapter(
+          child: SocialMediaGrid(),
+          ),
+      ]
     );
   }
 }

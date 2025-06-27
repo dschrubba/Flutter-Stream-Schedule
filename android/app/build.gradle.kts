@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.flutter_stream_schedule"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "29.0.13599879" //flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

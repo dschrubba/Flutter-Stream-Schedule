@@ -4,7 +4,7 @@ class AppThemeColors {
   AppThemeColors._();
 
   static AppThemeColorsSet light = AppThemeColorsSet(
-    background: themeColors['bonestorm-100']!,
+    background: themeColors['bonestorm-200']!,
     onBackground: themeColors['moonlight-900']!,
     surface: themeColors['bonestorm-100']!,
     onSurface: themeColors['moonlight-900']!,
@@ -28,6 +28,8 @@ class AppThemeColors {
     alert: themeColors['bakuretsuCrimson-700']!,
     onAlert: themeColors['bonestorm-100']!,
   );
+
+  static final Color shadowColor = Color.fromARGB(32, 12, 12, 17);
 
   static AppThemeColorsSet get(Brightness brightness) {
     if (brightness == Brightness.light) {

@@ -5,19 +5,19 @@ class AppThemeFAB {
 
   AppThemeFAB._();
 
-  static get(Brightness brightness) {
+  static FloatingActionButtonThemeData get(Brightness brightness) {
     return FloatingActionButtonThemeData(
       backgroundColor: AppThemeColors.get(brightness).accent,
       foregroundColor: AppThemeColors.get(brightness).onAccent
     );
   }
-  static getLight() {
+  static FloatingActionButtonThemeData getLight() {
     return FloatingActionButtonThemeData(
       backgroundColor: AppThemeColors.get(Brightness.light).accent,
       foregroundColor: AppThemeColors.get(Brightness.light).onAccent
     );
   }
-  static getDark() {
+  static FloatingActionButtonThemeData getDark() {
     return FloatingActionButtonThemeData(
       backgroundColor: AppThemeColors.get(Brightness.light).accent,
       foregroundColor: AppThemeColors.get(Brightness.light).onAccent

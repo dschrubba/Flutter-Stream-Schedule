@@ -121,3 +121,30 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
     );
   }
 }
+
+class StickyScheduleWeekSwitcherDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Material(
+      elevation: overlapsContent ? 4.0 : 0.0,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: const ScheduleWeekSwitcher(),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 60.0;
+
+  @override
+  double get minExtent => 60.0;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    // Rebuild only if the layout size changes
+    return false;
+  }
+}

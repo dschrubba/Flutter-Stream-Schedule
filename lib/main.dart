@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppThemeColors.get(Theme.of(context).brightness).background,
+        backgroundColor: themeColors['nocturnal-900'],
         title: Row(
           children: [
             AppLogo(
@@ -75,9 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ] 
           )
       ),
-      body: SingleChildScrollView(
+      body: SafeArea(
         child: LandingPage(),
-      ),
+        )
       //floatingActionButton: FloatingActionButton(
       //  onPressed: _incrementCounter,
       //  tooltip: 'Increment',

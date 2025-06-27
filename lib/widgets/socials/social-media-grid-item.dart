@@ -34,7 +34,7 @@ class SocialMediaGridItem extends StatelessWidget {
     );
   }
 
-  _launchURL(String url) async {
+  Future<void> _launchURL(String url) async {
    final parsed = Uri.parse(url);
    if (!await launchUrl(
     parsed,
