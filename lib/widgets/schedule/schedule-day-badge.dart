@@ -46,8 +46,6 @@ class ScheduleDayBadge extends StatelessWidget {
         break;
     }
 
-    
-
     return SizedBox(
       height: !isEmpty ? globals.scheduleItemHeight : 80,
       child: Container(

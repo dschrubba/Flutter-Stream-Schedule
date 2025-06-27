@@ -28,9 +28,12 @@ class ScheduleStreamItem extends StatelessWidget {
           height: globals.scheduleItemHeight,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: AppThemeColors.get(Theme.of(context).brightness).surface
+              color: 
+                !item!.cancelled
+                ? AppThemeColors.get(Theme.of(context).brightness).surface
+                : AppThemeColors.get(Theme.of(context).brightness).surfaceDisabled
             ),
-            child: Container( 
+            child: Container(
               padding: EdgeInsets.all(14),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -42,20 +45,28 @@ class ScheduleStreamItem extends StatelessWidget {
           )
       )
     );
-     
   }
 
   List<Widget> buildColumn(BuildContext context, StreamScheduleItem item) {
     List<Widget> children = [];
     bool hasSubtitle = item.game.subtitle.isNotEmpty;
 
+    Color textColor = !item.cancelled
+      ? AppThemeColors.get(Theme.of(context).brightness).onSurface
+      : AppThemeColors.get(Theme.of(context).brightness).onSurfaceDisabled;
+
+    TextDecoration textDecoration = !item.cancelled
+      ? TextDecoration.none
+      : TextDecoration.lineThrough;
+
     // Game Title
     children.add(
       AutoSizeText(
         item.game.title.isNotEmpty ? item.game.title  : "",
         style: CustomTextTheme().scheduleItemGameTitle.copyWith(
+          decoration: textDecoration,
           fontSize: hasSubtitle ? 24 : 32, 
-          color: AppThemeColors.get(Theme.of(context).brightness).onSurface
+          color: textColor
           )
       )
     );
@@ -65,7 +76,10 @@ class ScheduleStreamItem extends StatelessWidget {
       children.add(
         Text(
           item.game.subtitle,
-          style: CustomTextTheme().getStyleWithColor(CustomTextTheme().scheduleItemGameSubTitle, AppThemeColors.get(Theme.of(context).brightness).onSurface)
+          style: CustomTextTheme().scheduleItemGameSubTitle.copyWith(
+            color: textColor,
+            decoration: textDecoration
+          )
         )
       );
     }
@@ -81,10 +95,19 @@ class ScheduleStreamItem extends StatelessWidget {
           Row(
             spacing: 8,
             children: [
-              ScheduleStreamItemBadge(
-                text: "${item.hours}:${item.minutes}",
-                textColor: AppThemeColors.get(Theme.of(context).brightness).onAccent,
-                color: AppThemeColors.get(Theme.of(context).brightness).accent,
+              if (!item.cancelled) (
+                ScheduleStreamItemBadge(
+                  text: "${item.hours}:${item.minutes}",
+                  textColor: AppThemeColors.get(Theme.of(context).brightness).onAccent,
+                  color: AppThemeColors.get(Theme.of(context).brightness).accent,
+                )
+              ),
+              if (item.cancelled) (
+                ScheduleStreamItemBadge(
+                  text: "Cancelled",
+                  textColor: AppThemeColors.get(Theme.of(context).brightness).onAlert,
+                  color: AppThemeColors.get(Theme.of(context).brightness).alert,
+                )
               ),
               if (item.streamTitle.isNotEmpty) (
                 ScheduleStreamItemBadge(
@@ -97,7 +120,6 @@ class ScheduleStreamItem extends StatelessWidget {
           )
       )
     );
-
     return children;
   }
 }

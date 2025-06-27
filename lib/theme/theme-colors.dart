@@ -11,7 +11,9 @@ class AppThemeColors {
     surfaceDisabled: themeColors['nocturnal-800']!,
     onSurfaceDisabled: themeColors['nocturnal-400']!,
     accent: themeColors['lambda-600']!,
-    onAccent: themeColors['bonestorm-100']!
+    onAccent: themeColors['bonestorm-100']!,
+    alert: themeColors['bakuretsuCrimson-700']!,
+    onAlert: themeColors['bonestorm-100']!,
   );
 
   static AppThemeColorsSet dark = AppThemeColorsSet(
@@ -22,7 +24,9 @@ class AppThemeColors {
     surfaceDisabled: themeColors['nocturnal-800']!,
     onSurfaceDisabled: themeColors['nocturnal-400']!,
     accent: themeColors['bakuretsuCrimson-600']!,
-    onAccent: themeColors['bonestorm-100']!
+    onAccent: themeColors['bonestorm-100']!,
+    alert: themeColors['bakuretsuCrimson-700']!,
+    onAlert: themeColors['bonestorm-100']!,
   );
 
   static AppThemeColorsSet get(Brightness brightness) {
@@ -44,6 +48,8 @@ class AppThemeColorsSet {
   final Color onSurfaceDisabled;
   final Color accent;
   final Color onAccent;
+  final Color alert;
+  final Color onAlert;
   static const Color fallback = Colors.amber;
   AppThemeColorsSet({
     this.background = fallback,
@@ -54,6 +60,8 @@ class AppThemeColorsSet {
     this.onSurfaceDisabled = fallback,
     this.accent = fallback,
     this.onAccent = fallback,
+    this.alert = Colors.red,
+    this.onAlert = fallback
   });
 }
 
