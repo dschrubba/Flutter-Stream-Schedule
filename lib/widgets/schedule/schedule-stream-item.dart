@@ -36,7 +36,7 @@ class ScheduleStreamItem extends StatelessWidget {
           BoxShadow(
           color: AppThemeColors.shadowColor,
           offset: Offset(0, 10),
-          blurRadius: 20
+          blurRadius: globals.boxShadowBlur,
           )
           ]
         ),

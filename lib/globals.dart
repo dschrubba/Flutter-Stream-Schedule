@@ -1,5 +1,6 @@
 // Design Vars
 const double borderRadius = 16;
+const double boxShadowBlur = 16;
 
 // Schedule Day-Badge
 const double dayBadgeOpacity = 0.667;
