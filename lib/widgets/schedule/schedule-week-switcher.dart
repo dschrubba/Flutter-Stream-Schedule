@@ -1,47 +1,26 @@
-import 'package:flutter_stream_schedule/services/calendar-service.dart';
-import 'package:flutter_stream_schedule/services/data-service.dart';
+import 'dart:developer';
+
+import 'package:flutter_stream_schedule/providers.dart';
 import 'package:flutter_stream_schedule/static/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stream_schedule/theme/custom-themes/theme-text.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ScheduleWeekSwitcher extends StatefulWidget {
+class ScheduleWeekSwitcher extends ConsumerStatefulWidget {
 
   const ScheduleWeekSwitcher({
     super.key
     });
 
   @override
-  State<ScheduleWeekSwitcher> createState() => _ScheduleWeekSwitcherState();
+  ConsumerState<ScheduleWeekSwitcher> createState() => _ScheduleWeekSwitcherState();
 }
 
-class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
+class _ScheduleWeekSwitcherState extends ConsumerState<ScheduleWeekSwitcher> {
 
-  void changeCalendarWeekBy(int n) {
-    setState(() {
-      CalendarService.calendarWeek.value += n;
-      if (CalendarService.calendarWeek.value > Utils.getNumberOfWeeksInYear(CalendarService.year.value)) {
-        CalendarService.year.value++;
-        CalendarService.calendarWeek.value = 1;
-      }
-      else if (CalendarService.calendarWeek.value < 1) {
-        CalendarService.year.value--;
-        CalendarService.calendarWeek.value = Utils.getNumberOfWeeksInYear(CalendarService.year.value);
-      }
-      DataService.updateStreams(CalendarService.year.value, CalendarService.calendarWeek.value);
-    });
-  }
-
-  void jumpToCurrentWeek() {
-    setState(() {
-      CalendarService.year.value = DateTime.now().year;
-      CalendarService.calendarWeek.value = Utils.getCurrentCalendarWeek();
-      DataService.updateStreams(CalendarService.year.value, CalendarService.calendarWeek.value);
-    });
-  }
-
-  String buildDateRangeString(int cw) {
-    List<DateTime> days = Utils.daysOfCalendarWeek(CalendarService.year.value, cw);
+  String buildDateRangeString(int y, int cw) {
+    List<DateTime> days = Utils.datesOfCalendarWeek(y, cw);
     String firstDay = Utils.getFormattedDate(days[0]);
     String lastDay  = Utils.getFormattedDate(days[days.length - 1]);
     return "$firstDay  bis  $lastDay"; 
@@ -49,6 +28,7 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
 
   @override
   Widget build(BuildContext context) {
+    log("_ScheduleWeekSwitcherState:build called");
 
     ButtonStyle buttonStyle = ButtonStyle(
       backgroundColor: WidgetStateColor.resolveWith((c) => AppThemeColors.get(Theme.of(context).brightness).accent),
@@ -75,7 +55,7 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
             children: [
               IconButton.filled(
                 onPressed: () => {
-                  changeCalendarWeekBy(-1)
+                  ref.read(calendarWeekProvider).decrementWeek()
                 },
                 style: buttonStyle,
                 icon: 
@@ -88,13 +68,16 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
               ),
               FilledButton(
                 onPressed: () => {
-                  jumpToCurrentWeek()
+                  ref.read(calendarWeekProvider).setBothToCurrent()
                 },
                 style: buttonStyle,
                 child: Padding(
                   padding: EdgeInsetsGeometry.symmetric(vertical: 0, horizontal: 4),
                   child: Text(
-                    buildDateRangeString(CalendarService.calendarWeek.value), 
+                    buildDateRangeString(
+                      ref.watch(calendarWeekProvider).calendarYear,
+                      ref.watch(calendarWeekProvider).calendarWeek
+                      ), 
                     style: CustomTextTheme().getStyle(CustomFontFamilies.generalSans).copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppThemeColors.get(Theme.of(context).brightness).onAccent
@@ -103,7 +86,7 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
               )),
               IconButton.filled(
                 onPressed: () => {
-                  changeCalendarWeekBy(1)
+                  ref.watch(calendarWeekProvider).incrementWeek()
                   },
                 style: buttonStyle,
                 icon: 

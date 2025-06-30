@@ -1,32 +1,30 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stream_schedule/providers.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-data.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:rxdart/rxdart.dart';
 
 class DataService {
-
-  static Cache cache = {};
-  static BehaviorSubject<int> year = BehaviorSubject<int>();
-  static BehaviorSubject<int> calendarWeek = BehaviorSubject<int>();
   
-  static Future<CacheWeekItem?> updateStreams(int year, int calendarWeek) async {
+  static Future<CacheWeekItem?> updateStreams(int year, int calendarWeek, WidgetRef ref) async {
     log("updateStreams called");
 
+    final cache = ref.read(cacheProvider).cache;
     final now = DateTime.now();
     final threshold = now.subtract(const Duration(minutes: 1));
-    final lastUpdate = DataService.cache[calendarWeek]?.updated ?? DateTime(1999);
+    final lastUpdate = cache[calendarWeek]?.updated ?? DateTime(1999);
 
     // Only update if cache exists and data is newer than threshold
-    if (!(!DataService.cache.containsKey(calendarWeek) || lastUpdate.isBefore(threshold))) {
+    if (!(!cache.containsKey(calendarWeek) || lastUpdate.isBefore(threshold))) {
       return null;
     }
 
-    return await DataService.loadStreams(year, calendarWeek);
+    return await DataService.loadStreams(year, calendarWeek, ref);
   }
 
-  static Future<CacheWeekItem?> loadStreams(int year, int cw) async {
+  static Future<CacheWeekItem?> loadStreams(int year, int cw, WidgetRef ref) async {
     log("loadStreams called");
     final Response res = await get(Uri.parse('${dotenv.env['API_STREAMS_LIST']}/$year/$cw'));
 
@@ -49,7 +47,7 @@ class DataService {
           ),
         )),
       );
-      cache[cw] = cacheWeekItem;
+      ref.read(cacheProvider).updateCacheItem(ref.read(calendarWeekProvider).getCurrentCacheIndex(), cacheWeekItem);
     } 
     else if(decoded["statusCode"].toString().startsWith("4")) {
       log("API returned 4XX");
@@ -58,6 +56,7 @@ class DataService {
   } 
 }
 
+// String Index = Year + Calendar Week (e.g. 202507)
 typedef Cache = Map<int, CacheWeekItem>;
 
 class CacheWeekItem {

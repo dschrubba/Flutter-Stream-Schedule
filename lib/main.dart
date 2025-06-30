@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_stream_schedule/services/calendar-service.dart';
-import 'package:flutter_stream_schedule/services/data-service.dart';
+import 'package:flutter_stream_schedule/providers.dart';
+import 'package:flutter_stream_schedule/static/data-service.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/theme/theme.dart';
 import 'package:flutter_stream_schedule/widgets/app-logo.dart';
@@ -24,15 +24,16 @@ Future<void> main() async {
     );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
   // This widget is the root of the application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     log("MyApp:build called");
     DataService.updateStreams(
-      CalendarService.year.value,
-      CalendarService.calendarWeek.value,
+      ref.read(calendarWeekProvider).calendarYear,
+      ref.read(calendarWeekProvider).calendarWeek,
+      ref
     );
     return MaterialApp(
       title: 'Flutter Demo',

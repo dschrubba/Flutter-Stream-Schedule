@@ -63,7 +63,7 @@ class Utils {
   }
 
   // Get Dates of Calendar Week
-  static List<DateTime> daysOfCalendarWeek(int year, int calendarWeek) {
+  static List<DateTime> datesOfCalendarWeek(int year, int calendarWeek) {
     // ISO 8601: Week 1 has January 4th, and weeks start on Monday
     final jan4 = DateTime(year, 1, 4);
     final jan4Weekday = jan4.weekday; // Monday = 1, Sunday = 7
@@ -81,7 +81,7 @@ class Utils {
   // Get Schedule Items for Calendar Week
   static List<List<StreamScheduleItem>> scheduleItemsForCalendarWeek(List<StreamScheduleItem> scheduleItems, int year, int calendarWeek) {
     // ISO 8601: Week 1 has January 4th, and weeks start on Monday
-    List<DateTime> dcw = daysOfCalendarWeek(year, calendarWeek);
+    List<DateTime> dcw = datesOfCalendarWeek(year, calendarWeek);
 
     return List.generate(7, (i) =>
       scheduleItems.where((si) => isSameDay(si.date, dcw[i])).toList()
