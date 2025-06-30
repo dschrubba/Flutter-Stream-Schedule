@@ -102,7 +102,11 @@ class Utils {
 
   static Map<int, String> days(BuildContext context) {
     Locale locale = View.of(context).platformDispatcher.locale;
-    return localizedDays[locale.countryCode] ?? localizedDays["en"]!;
+    var days = localizedDays[locale.languageCode];
+    if (days == null || days.isEmpty) {
+      days = localizedDays.entries.firstWhere((entry) => entry.key.startsWith(locale.countryCode ?? "en")).value;
+    }
+    return days;
   }
 
   static const Map<String, Map<int, String>> localizedDays = {
