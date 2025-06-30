@@ -69,7 +69,7 @@ class ScheduleElement extends StatelessWidget {
           ScheduleDayBadge(
             state: state,
             dateTs: dateTs,
-            day: Utils.dateTsToDayString(dateTs), 
+            day: Utils.dateTsToDayString(context, dateTs), 
             hours: item?.hours ?? "XX",
             minutes: item?.minutes ?? "XX",
           ),

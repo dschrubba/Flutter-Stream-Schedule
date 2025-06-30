@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-data.dart';
 import 'package:intl/intl.dart';
 
@@ -93,18 +94,35 @@ class Utils {
     return (a.year == b.year) && (a.month == b.month) && (a.day == b.day);
   }
 
-  static String dateTsToDayString(int dateTs) {
+  static String dateTsToDayString(BuildContext context, int dateTs) {
+    Map<int, String> d = days(context);
     DateTime date = dateTsToDate(dateTs);
-    return days[date.weekday-1]!;
+    return d[date.weekday-1]!;
   }
 
-  static const Map<int, String> days = {
-    0: "Monday",
-    1: "Tuesday",
-    2: "Wednesday",
-    3: "Thursday",
-    4: "Friday",
-    5: "Saturday",
-    6: "Sunday",
+  static Map<int, String> days(BuildContext context) {
+    Locale locale = View.of(context).platformDispatcher.locale;
+    return localizedDays[locale.countryCode] ?? localizedDays["en"]!;
+  }
+
+  static const Map<String, Map<int, String>> localizedDays = {
+    "de": {
+      0: "Montag",
+      1: "Dienstag",
+      2: "Mittwoch",
+      3: "Donnerstag",
+      4: "Freitag",
+      5: "Samstag",
+      6: "Sonntag",
+      },
+    "en": {
+      0: "Monday",
+      1: "Tuesday",
+      2: "Wednesday",
+      3: "Thursday",
+      4: "Friday",
+      5: "Saturday",
+      6: "Sunday",
+      }
   };
 }
