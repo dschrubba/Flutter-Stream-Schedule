@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-data.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-day-badge.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-stream-item.dart';
-import 'package:flutter_stream_schedule/services/utils-service.dart';
+import 'package:flutter_stream_schedule/static/utils.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule.dart';
 import '/globals.dart' as globals;
 
@@ -69,7 +69,7 @@ class ScheduleElement extends StatelessWidget {
           ScheduleDayBadge(
             state: state,
             dateTs: dateTs,
-            day: UtilsService.dateTsToDayString(dateTs), 
+            day: Utils.dateTsToDayString(dateTs), 
             hours: item?.hours ?? "XX",
             minutes: item?.minutes ?? "XX",
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter_stream_schedule/services/calendar-service.dart';
 import 'package:flutter_stream_schedule/services/data-service.dart';
-import 'package:flutter_stream_schedule/services/utils-service.dart';
+import 'package:flutter_stream_schedule/static/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stream_schedule/theme/custom-themes/theme-text.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
@@ -20,13 +20,13 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
   void changeCalendarWeekBy(int n) {
     setState(() {
       CalendarService.calendarWeek.value += n;
-      if (CalendarService.calendarWeek.value > UtilsService.getNumberOfWeeksInYear(CalendarService.year.value)) {
+      if (CalendarService.calendarWeek.value > Utils.getNumberOfWeeksInYear(CalendarService.year.value)) {
         CalendarService.year.value++;
         CalendarService.calendarWeek.value = 1;
       }
       else if (CalendarService.calendarWeek.value < 1) {
         CalendarService.year.value--;
-        CalendarService.calendarWeek.value = UtilsService.getNumberOfWeeksInYear(CalendarService.year.value);
+        CalendarService.calendarWeek.value = Utils.getNumberOfWeeksInYear(CalendarService.year.value);
       }
       DataService.updateStreams(CalendarService.year.value, CalendarService.calendarWeek.value);
     });
@@ -35,15 +35,15 @@ class _ScheduleWeekSwitcherState extends State<ScheduleWeekSwitcher> {
   void jumpToCurrentWeek() {
     setState(() {
       CalendarService.year.value = DateTime.now().year;
-      CalendarService.calendarWeek.value = UtilsService.getCurrentCalendarWeek();
+      CalendarService.calendarWeek.value = Utils.getCurrentCalendarWeek();
       DataService.updateStreams(CalendarService.year.value, CalendarService.calendarWeek.value);
     });
   }
 
   String buildDateRangeString(int cw) {
-    List<DateTime> days = UtilsService.daysOfCalendarWeek(CalendarService.year.value, cw);
-    String firstDay = UtilsService.getFormattedDate(days[0]);
-    String lastDay  = UtilsService.getFormattedDate(days[days.length - 1]);
+    List<DateTime> days = Utils.daysOfCalendarWeek(CalendarService.year.value, cw);
+    String firstDay = Utils.getFormattedDate(days[0]);
+    String lastDay  = Utils.getFormattedDate(days[days.length - 1]);
     return "$firstDay  bis  $lastDay"; 
   }
 

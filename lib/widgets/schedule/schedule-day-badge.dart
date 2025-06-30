@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_stream_schedule/services/utils-service.dart';
+import 'package:flutter_stream_schedule/static/utils.dart';
 import 'package:flutter_stream_schedule/theme/custom-themes/theme-text.dart';
 import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/globals.dart' as globals;
@@ -31,7 +31,7 @@ class ScheduleDayBadge extends StatelessWidget {
     Color badgeColor;
     Color textColor;
     bool isEmpty;
-    bool isToday = dateTs == UtilsService.dateToDateTs(DateTime.now());
+    bool isToday = dateTs == Utils.dateToDateTs(DateTime.now());
 
     switch (state) {
       case ScheduleItemState.accent:

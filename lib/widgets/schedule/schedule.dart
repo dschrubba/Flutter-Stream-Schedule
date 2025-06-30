@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stream_schedule/services/calendar-service.dart';
 import 'package:flutter_stream_schedule/services/data-service.dart';
-import 'package:flutter_stream_schedule/services/utils-service.dart';
+import 'package:flutter_stream_schedule/static/utils.dart';
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-element.dart';
 
 enum ScheduleItemState {
@@ -32,12 +32,12 @@ class _ScheduleState extends State<Schedule>  {
   }
 
   List<Container> _generateListItems() {
-    List<DateTime> daysOfCalendarWeek = UtilsService.daysOfCalendarWeek(2025, CalendarService.calendarWeek.value);
+    List<DateTime> daysOfCalendarWeek = Utils.daysOfCalendarWeek(2025, CalendarService.calendarWeek.value);
     List<Container> list = [];
     // Iterate over days of calendar week, generate Schedule Elements
     for (int key = 0; key < daysOfCalendarWeek.length; key++) {
       DateTime value = daysOfCalendarWeek[key];
-      int dateTs = UtilsService.dateToDateTs(value);
+      int dateTs = Utils.dateToDateTs(value);
       // Add Schedule Elements to list
       list.insert(key, Container(
         margin: EdgeInsets.only(top: 16),

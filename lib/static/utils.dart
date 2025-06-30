@@ -1,7 +1,7 @@
 import 'package:flutter_stream_schedule/widgets/schedule/schedule-data.dart';
 import 'package:intl/intl.dart';
 
-class UtilsService {
+class Utils {
 
   static DateTime dateTsToDate(dynamic dateTs) {
     dateTs = dateTs.toString();
