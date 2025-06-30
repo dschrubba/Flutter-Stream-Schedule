@@ -9,14 +9,19 @@ import 'package:flutter_stream_schedule/theme/theme-colors.dart';
 import 'package:flutter_stream_schedule/theme/theme.dart';
 import 'package:flutter_stream_schedule/widgets/app-logo.dart';
 import 'package:flutter_stream_schedule/widgets/pages/landing-page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   debugPaintSizeEnabled = false;
   debugPaintLayerBordersEnabled = false;
   debugPaintSizeEnabled = false;
 
-  await dotenv.load(fileName: ".env");  //path to your .env file
-  runApp(const MyApp());
+  await dotenv.load(fileName: ".env"); //path to your .env file
+  runApp(
+    ProviderScope(
+      child: const MyApp()
+      )
+    );
 }
 
 class MyApp extends StatelessWidget {
@@ -58,7 +63,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,17 +71,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Row(
           children: [
             AppLogo(
-              name: 'AppBarLogo', 
+              name: 'AppBarLogo',
               location: 'assets/icons/logo.svg',
               height: 48,
-              color: AppThemeColors.get(Theme.of(context).brightness).accent
-              ),
-            ] 
-          )
+              color: AppThemeColors.get(Theme.of(context).brightness).accent,
+            ),
+          ],
+        ),
       ),
-      body: SafeArea(
-        child: LandingPage(),
-        )
+      body: SafeArea(child: LandingPage()),
       //floatingActionButton: FloatingActionButton(
       //  onPressed: _incrementCounter,
       //  tooltip: 'Increment',
