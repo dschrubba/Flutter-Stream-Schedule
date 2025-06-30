@@ -18,22 +18,18 @@ class ScheduleElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    StreamScheduleItem? item;
     var validItems = scheduleItems.nonNulls.toList();
-    if (validItems.isNotEmpty) {
-      item = StreamScheduleItem(
-        date: validItems[0].date, 
-        dateTs: validItems[0].dateTs, 
-        weekday: validItems[0].weekday, 
-        hours: validItems[0].hours, 
-        minutes: validItems[0].minutes, 
-        streamTitle: validItems[0].streamTitle, 
-        game: validItems[0].game, 
-        cancelled: validItems[0].cancelled);
-    }
+
+    // Get earliest dateTs
+    int? minDateTs = validItems.isNotEmpty
+         ? validItems.map((e) => e.dateTs).reduce((a, b) => a < b ? a : b)
+         : null;
+
+    // Get first item with earliest dateTs
+    StreamScheduleItem? firstItem = validItems.where((element) => element.dateTs == minDateTs).toList().firstOrNull;
 
     ScheduleItemState state = ScheduleItemState.accent;
-    if (item != null && item.cancelled) {
+    if (firstItem?.cancelled ?? false) {
       state = ScheduleItemState.cancelled;
     }
     else if (validItems.isEmpty) {
@@ -58,9 +54,7 @@ class ScheduleElement extends StatelessWidget {
                   Row(
                     spacing: 16,
                     children: [
-                      ScheduleStreamItem(item: item),
-                      ScheduleStreamItem(item: item),
-                      ScheduleStreamItem(item: item),
+                      _buildRow(validItems)
                     ]
                   ),
               )
@@ -69,12 +63,21 @@ class ScheduleElement extends StatelessWidget {
           ScheduleDayBadge(
             state: state,
             dateTs: dateTs,
-            day: Utils.dateTsToDayString(context, dateTs), 
-            hours: item?.hours ?? "XX",
-            minutes: item?.minutes ?? "XX",
+            day: Utils.dateTsToDayString(context, dateTs),
           ),
         ]
       )
     );
   }
+
+  Widget _buildRow(List<StreamScheduleItem> items) {
+      List<Widget> list = [];
+      for (var item in items) {
+        list.add(
+          ScheduleStreamItem(item: item)
+        );
+      }
+      return Row(children: list);
+  }
+
 }

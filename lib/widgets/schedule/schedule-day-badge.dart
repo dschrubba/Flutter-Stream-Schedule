@@ -10,16 +10,12 @@ class ScheduleDayBadge extends StatelessWidget {
   final ScheduleItemState state;
   final int dateTs;
   final String day;
-  final String hours;
-  final String minutes;
 
   const ScheduleDayBadge({
     super.key,
     required this.day,
     required this.dateTs,
     required this.state,
-    required this.hours,
-    required this.minutes,
   });
 
   String getDayShort(String d) {
