@@ -23,6 +23,7 @@ class ScheduleStreamItem extends StatelessWidget {
     }
 
     return Container(
+      margin: EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         color: 
             !item!.cancelled
